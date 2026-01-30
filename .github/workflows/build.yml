@@ -36,6 +36,10 @@ jobs:
         env:
           DOCKER_BUILDKIT: 1
           COMPOSE_DOCKER_CLI_BUILD: 1
+          DD_CIVISIBILITY_ENABLED: true
+          DD_CIVISIBILITY_AGENTLESS_ENABLED: true
+          DD_SITE: datad0g.com
+          DD_API_KEY: ${{ secrets.DD_API_KEY }}
 
       - name: Upload coverage
         uses: codecov/codecov-action@v3

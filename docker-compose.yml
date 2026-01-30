@@ -32,9 +32,26 @@ services:
     volumes:
       - .:/app/steinbock
     entrypoint: /bin/bash
-    command: ['-c', 'python -m pytest tests --cov=steinbock --cov-report xml:coverage.xml']
+    command: ['-c', 'pip install -U ddtrace && python -m pytest tests --cov=steinbock --cov-report xml:coverage.xml --ddtrace']
     working_dir: /app/steinbock
     user: root
+    environment:
+      - DD_CIVISIBILITY_ENABLED
+      - DD_CIVISIBILITY_AGENTLESS_ENABLED
+      - DD_SITE
+      - DD_API_KEY
+      - GITHUB_ACTION
+      - GITHUB_SERVER_URL
+      - GITHUB_RUN_ID
+      - GITHUB_RUN_NUMBER
+      - GITHUB_RUN_ATTEMPT
+      - GITHUB_WORKFLOW
+      - GITHUB_WORKSPACE
+      - GITHUB_REPOSITORY
+      - GITHUB_SHA
+      - GITHUB_HEAD_REF
+      - GITHUB_REF
+      - GITHUB_JOB
   pytest-debug:
     image: ghcr.io/bodenmillergroup/steinbock:latest
     volumes:
