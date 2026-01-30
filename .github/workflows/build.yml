@@ -17,7 +17,7 @@ on:
 jobs:
 
   test:
-    runs-on: ubuntu-latest-m
+    runs-on: ubuntu-latest
     steps:
 
       - name: Checkout repository
@@ -26,16 +26,20 @@ jobs:
           fetch-depth: 0
 
       - name: Build steinbock container
-        run: docker-compose build steinbock
+        run: docker compose build steinbock
         env:
           DOCKER_BUILDKIT: 1
           COMPOSE_DOCKER_CLI_BUILD: 1
 
       - name: Run pytest in steinbock container
-        run: docker-compose run pytest
+        run: docker compose run pytest
         env:
           DOCKER_BUILDKIT: 1
           COMPOSE_DOCKER_CLI_BUILD: 1
+          DD_CIVISIBILITY_ENABLED: true
+          DD_CIVISIBILITY_AGENTLESS_ENABLED: true
+          DD_SITE: datad0g.com
+          DD_API_KEY: ${{ secrets.DD_API_KEY }}
 
       - name: Upload coverage
         uses: codecov/codecov-action@v3
