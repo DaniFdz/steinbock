@@ -32,7 +32,7 @@ services:
     volumes:
       - .:/app/steinbock
     entrypoint: /bin/bash
-    command: ['-c', 'pip install -U ddtrace && python -m pytest tests --cov=steinbock --cov-report xml:coverage.xml --ddtrace']
+    command: ['-c', 'python -m pytest tests --cov=steinbock --cov-report xml:coverage.xml --ddtrace']
     working_dir: /app/steinbock
     user: root
     environment:
